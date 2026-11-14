@@ -1,0 +1,9 @@
+process.env.NODE_ENV = 'test';
+process.env.MONGO_URI = process.env.TEST_MONGO_URI || 'mongodb://127.0.0.1:27017/learnsphere_test';
+process.env.REDIS_URL = process.env.TEST_REDIS_URL || 'redis://127.0.0.1:6379';
+process.env.LOCAL_STORAGE_DIR = require('path').join(require('os').tmpdir(), 'ls-test-storage');
+process.env.STORAGE_DRIVER = 'local';
+process.env.RAZORPAY_KEY_ID = 'rzp_test_key';
+process.env.RAZORPAY_KEY_SECRET = 'test_key_secret';
+process.env.RAZORPAY_WEBHOOK_SECRET = 'test_webhook_secret';
+process.env.PUBLIC_API_URL = 'http://127.0.0.1:0';
