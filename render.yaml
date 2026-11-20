@@ -1,0 +1,40 @@
+# Render Blueprint for the LearnSphere API (FS-03). The FS-01 API is deployed separately.
+# Values marked sync: false are asked for in the Render dashboard and are never stored in Git.
+services:
+  - type: web
+    name: learnsphere-api
+    runtime: docker
+    plan: free
+    region: singapore
+    rootDir: FS-03/server
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: RUN_WORKER_INLINE
+        value: "true"
+      - key: SEED_DEMO
+        value: "true"
+      - key: STORAGE_DRIVER
+        value: local
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: MEDIA_SIGNING_SECRET
+        generateValue: true
+      - key: MONGO_URI
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: CLIENT_URL
+        sync: false
+      - key: PUBLIC_API_URL
+        sync: false
+      - key: RAZORPAY_KEY_ID
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false
