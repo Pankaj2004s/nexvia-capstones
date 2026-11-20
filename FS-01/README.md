@@ -140,7 +140,7 @@ The route guards only decide what the UI shows. The real protection is the `prot
 ## Folder Structure
 
 ```
-fs-01-shopsphere/
+FS-01/
 ├── docker-compose.yml      # Redis and Elasticsearch for local development
 ├── docs/                   # project documentation
 │   ├── architecture.md     # Mermaid architecture diagrams and design decisions
