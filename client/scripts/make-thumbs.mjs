@@ -28,7 +28,7 @@ function svg([title, category, level, , , label], i) {
   const [dark, light] = PALETTES[i % PALETTES.length];
   const lines = wrap(title);
   const titleText = lines.map((l, n) => `<text x="36" y="${290 + n * 30}" font-size="26" font-weight="700" fill="#fff">${esc(l)}</text>`).join('');
-  const labelSize = label.length > 9 ? 40 : 54;
+  const labelSize = label.length > 12 ? 32 : label.length > 9 ? 40 : 54;
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" font-family="'Segoe UI', system-ui, -apple-system, Arial, sans-serif">
 <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${dark}"/><stop offset="1" stop-color="${light}"/></linearGradient>
 <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".55"/></linearGradient></defs>
