@@ -1,4 +1,4 @@
-# Learning notes: how LearnSphere works (read before presenting)
+# Learning notes: how LearnSphere works
 
 Each section: **what it does**, **how**, **concepts you should be able to name**, **likely question + answer**, and a short Hinglish summary.
 
@@ -18,7 +18,7 @@ Concepts: *monolith vs microservices, feature-based modules, separation of conce
 **How:**
 - Password is hashed with **bcrypt** (never stored plain).
 - Login returns a short-lived **access JWT** (15 min) in the response body, and a **refresh token** in an **httpOnly cookie** (JavaScript cannot read it, so XSS cannot steal it). The refresh token is stored only as a SHA-256 hash in the DB.
-- **Token rotation:** every refresh issues a new refresh token and invalidates the old one. Each token has a random `jti`, otherwise two tokens created in the same second could be identical (a real bug our test caught).
+- **Token rotation:** every refresh issues a new refresh token and invalidates the old one. Each token has a random `jti`, otherwise two tokens created in the same second could be identical (a real bug a test caught).
 - `authenticate` middleware verifies the bearer token and sets `req.user`; `authorize('instructor','admin')` checks the role.
 **Concepts:** JWT, middleware, hashing vs encryption, httpOnly cookies, RBAC, rate limiting, user enumeration (same error for wrong email and wrong password).
 **Q:** Why not keep the JWT in localStorage? **A:** Any XSS can read localStorage. The access token lives only in memory; the long-lived one is httpOnly.
