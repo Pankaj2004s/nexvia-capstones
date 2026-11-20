@@ -37,7 +37,7 @@ Video processing: a 6-second 1280x720 clip with audio is converted to two HLS re
 
 Client bundle: main chunk 302 kB (97 kB gzip); the heavy pages are lazy-loaded (video player 588 kB because of hls.js, instructor dashboard 349 kB because of recharts).
 
-## Known limits (read before the presentation)
+## Known limits
 
 1. **Database used in tests.** The tests ran against FerretDB, a MongoDB-compatible server, not against MongoDB itself. It does not implement `$dateToString`, `$sum: 1` or projection inside `findAndModify`, so the earnings dashboard groups in application code and the seed script avoids `findOneAndUpdate` on `select:false` fields. Everything is plain Mongoose and should run unchanged on MongoDB/Atlas, and the deployed app runs on MongoDB Atlas, but the test suite has not been run against real MongoDB. You can do that with `TEST_MONGO_URI=... npm test`.
 2. **Not exercised against real external services:** AWS S3 and CloudFront (covered by unit tests with a fake AWS client and a real RSA-signed policy, not by a live bucket), Razorpay order creation in the automated tests (only the network call is stubbed; signature verification, webhook and enrollment logic are real). 
