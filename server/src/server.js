@@ -19,6 +19,11 @@ async function main() {
 
   server.listen(cfg.port, () => logger.info(`LearnSphere API on port ${cfg.port} (${cfg.isProd ? 'production' : 'development'})`));
 
+  // runs after listen() so the host's health check passes while the demo video is being built
+  if (cfg.seedDemo) {
+    require('./seed').bootstrapDemo().catch((e) => logger.error(`SEED_DEMO failed: ${e.message}`));
+  }
+
   const shutdown = async (sig) => {
     logger.info(`${sig} received, shutting down`);
     server.close();

@@ -41,4 +41,6 @@ module.exports = {
   },
   instructorShare: Number(process.env.INSTRUCTOR_SHARE) || 0.8,
   runWorkerInline: process.env.RUN_WORKER_INLINE === 'true',
+  // seed an empty database once at boot and rebuild the demo video if its files are gone (free hosts wipe the disk)
+  seedDemo: process.env.SEED_DEMO === 'true',
 };
