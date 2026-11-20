@@ -1,0 +1,42 @@
+# One command: docker compose up --build   -> app on http://localhost:8080
+# Everything below can be overridden from a .env file next to this one (see .env.example),
+# for example MONGO_URI to use MongoDB Atlas instead of the local container.
+services:
+  mongo:
+    image: mongo:7
+    volumes: [mongo-data:/data/db]
+  redis:
+    image: redis:7-alpine
+  api:
+    build: ./server
+    environment: &env
+      NODE_ENV: production
+      PORT: 5000
+      MONGO_URI: ${MONGO_URI:-mongodb://mongo:27017/learnsphere}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+      CLIENT_URL: ${CLIENT_URL:-http://localhost:8080}
+      PUBLIC_API_URL: ${PUBLIC_API_URL:-http://localhost:8080}
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:-change-me-access-secret}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-change-me-refresh-secret}
+      MEDIA_SIGNING_SECRET: ${MEDIA_SIGNING_SECRET:-change-me-media-secret}
+      LOCAL_STORAGE_DIR: /data/storage
+      RUN_WORKER_INLINE: "false"
+      SEED_DEMO: ${SEED_DEMO:-true}
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID:-}
+      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET:-}
+      RAZORPAY_WEBHOOK_SECRET: ${RAZORPAY_WEBHOOK_SECRET:-}
+    volumes: [storage:/data/storage]
+    depends_on: [mongo, redis]
+  worker:
+    build: ./server
+    command: ["node", "src/workers/video.worker.js"]
+    environment: *env
+    volumes: [storage:/data/storage]
+    depends_on: [mongo, redis]
+  web:
+    build: ./client
+    ports: ["8080:80"]
+    depends_on: [api]
+volumes:
+  mongo-data:
+  storage:
