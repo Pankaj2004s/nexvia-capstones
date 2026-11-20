@@ -4,8 +4,8 @@ An online learning platform (MERN) with video lessons, live classes, quizzes and
 
 This is project **FS-03**. The repository also holds **FS-01** (ShopSphere) in its own folder.
 
-**Live demo:** __WEB_URL__
-**API health check:** __API_URL__/api/health
+**Live demo:** https://nexvia-capstones.vercel.app
+**API health check:** https://learnsphere-api-jzdc.onrender.com/api/health
 
 The API is on Render's free plan and sleeps when idle, so the first request after a pause can take about a minute.
 

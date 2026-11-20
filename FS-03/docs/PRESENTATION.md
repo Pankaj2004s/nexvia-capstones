@@ -1,7 +1,7 @@
 # LearnSphere: 10-Minute Presentation Outline
 
-Live demo: __WEB_URL__
-API: __API_URL__/api/health
+Live demo: https://nexvia-capstones.vercel.app
+API: https://learnsphere-api-jzdc.onrender.com/api/health
 
 This outline is for a 10-minute talk about LearnSphere alone. If the final presentation covers two projects in 10 minutes, give LearnSphere about 5 minutes: slides 1 to 3, one engineering decision (slide 4), a short demo and the honest limits.
 

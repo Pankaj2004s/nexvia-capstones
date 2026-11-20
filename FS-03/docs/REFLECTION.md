@@ -2,7 +2,7 @@
 
 Author: Pankaj Sharma
 Project: FS-03 LearnSphere, a learning platform with video lessons and live classes
-Live demo: __WEB_URL__
+Live demo: https://nexvia-capstones.vercel.app
 
 ## 1. What this project is and how I worked on it
 
