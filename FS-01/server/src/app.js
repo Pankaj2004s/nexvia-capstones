@@ -1,0 +1,56 @@
+import path from "node:path";
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import morgan from "morgan";
+import { env } from "./config/env.js";
+import healthRoutes from "./features/health/health.routes.js";
+import authRoutes from "./features/auth/auth.routes.js";
+import categoryRoutes from "./features/categories/category.routes.js";
+import productRoutes from "./features/products/product.routes.js";
+import cartRoutes from "./features/cart/cart.routes.js";
+import orderRoutes from "./features/orders/order.routes.js";
+import paymentRoutes from "./features/payments/payment.routes.js";
+import userRoutes from "./features/users/user.routes.js";
+import uploadRoutes from "./features/uploads/upload.routes.js";
+import { notFound } from "./middlewares/notFound.js";
+import errorHandler from "./middlewares/errorHandler.js";
+
+const app = express();
+
+if (env.nodeEnv === "production") {
+  app.set("trust proxy", 1);
+}
+
+app.use(helmet());
+app.use(cors({ origin: env.clientUrl }));
+if (env.nodeEnv !== "test") {
+  app.use(morgan("dev"));
+}
+
+app.use("/api/payments", paymentRoutes);
+
+app.use(express.json());
+
+app.use(
+  "/uploads",
+  express.static(path.resolve(env.uploadDir), {
+    setHeaders: (res) => {
+      res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+    },
+  }),
+);
+
+app.use("/api/health", healthRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/uploads", uploadRoutes);
+
+app.use(notFound);
+app.use(errorHandler);
+
+export default app;
