@@ -201,8 +201,8 @@ fs-01-shopsphere/
 1. Clone the repo and install dependencies:
 
 ```bash
-git clone https://github.com/Pankaj2004s/fs-01-shopsphere.git
-cd fs-01-shopsphere/server && npm install
+git clone https://github.com/Pankaj2004s/nexvia-capstones.git
+cd nexvia-capstones/FS-01/server && npm install
 cd ../client && npm install
 ```
 
